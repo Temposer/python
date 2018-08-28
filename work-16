@@ -1,0 +1,128 @@
+#文件
+
+#open函数
+#用于打开文件，带有多个参数
+#第一个参数：文件路径和名称
+#mode：表明用什么方法打开文件
+    #r：以制度方式打开文件
+    #w:写方式打开，会覆盖一钱的内容
+    #x:创建方式打开，如果文件已经存在，报错
+    #a:append方式：一直就的方式在文件后继续磁轭如
+    #b:binary方式：二进制方式写入
+    #t:文本方式打开
+    #+：可读写
+#f=open("1.txt",'w')
+#f.close()
+#文件打开时候必须关闭，尤其是只读文件
+#"Process finished with exit code 0"表示已经完成操作
+
+#with语句
+    #使用上下文管理协议的技术
+    #自动判断文件的作用域，自动关闭已经打开且不用的文件
+'''
+with open("i.txt",'w') as d:
+    pass
+#在本模块中不需要进行close关闭
+
+with open('D:\qq\Bin\zhaos.txt','r') as g:#注意此处：对于地址的写入若果不在同一个文件加下，应当将地址写成绝对地址绝对地址
+    str=g.readline()
+    while str:
+        print(str)
+        str=g.readline()
+#readline 为按行进行读取
+#list 能用打开的文件作为参数把文件作为一个元素
+
+with open('D:\qq\Bin\zhaos.txt','r') as f:
+    l=list(f)
+    for line in l:
+        print(line)
+
+#read是按字符来读取文件内容
+#允许输入参数决定读取几个字符，如果没有指定，从当前位置读取到结尾
+#否则从当前位置读取制定个数的字符
+with open('D:\qq\Bin\zhaos.txt','r') as g:
+    str = g.read(5)#阿斯顿发斯 由此可见，在read后面加上一个参数，将巨鼎读取读取的字符个数；
+    #此处“=”前后都应该具有一个空格
+    print(str)
+    print(len(str))
+
+#seek(offset,from)
+#移动文件的读取位置，也叫读取指针
+#from的取值范围：
+    #0:从文件头开始偏移
+    #1从文件当前位置开始偏移
+    #2从文件末尾开始偏移
+    #以上取值，都应该视情况而定
+
+with open('D:\qq\Bin\zhaos.txt','r') as f:#此时默认seek指针在字符开头的位置
+    f.seek(4,0)#‘0’意为：从字符的开头开时计算，‘4’表示想做移动4个字符
+    str = f.read(1)#读取1个字符
+    print(str)#顿
+
+import time
+with open('D:\qq\Bin\zhaos.txt','r') as n:
+    str=n.read(3)
+    while str:
+        print(str)
+        #time.sleep(1)
+        str=n.read(3)
+
+#tell函数：用来显示文件读写指针的当前位置
+with open('D:\qq\Bin\zhaos.txt','r') as f:
+    str = f.read(3)
+    pos = f.tell()
+    while str:
+        print(str)
+        print(pos)
+        str = f.read(3)
+        pos=f.tell()
+        #结果说明tell的返回数字是byte
+        #read是以字符为单位
+'''
+##文件的写操作
+#write(str):把字符串写入文件
+#write(str):把字符串写入到文件（区别：参数可以使字符串也可以为字符序列）
+
+#  向文件追加字符串
+'''
+with open('D:\qq\Bin\zhaos.txt','a') as f:  #切记此处对于文件的权限不应该只有只读权限，应该可以修改所以为‘a’
+    f.write('\n生活不只有眼前的苟且，\n 还有诗和远方。')  #即可读又可以进行修改类型最方便，也可以为‘w’只可以修改类型。
+
+with open('D:\qq\Bin\zhaos.txt','r') as f:
+    l=list(f)
+    for line in l:
+        print(line)
+'''
+
+#经过试验说明对于writelines的作用于write十分相同，就不写
+
+
+#持久化  pickle
+#序列化（持久化，落地）：把程序运行中的信息保存在磁盘上
+#反序列化：序列号的逆过程
+#pickle:python所提供的序列化模块
+#pickle.dump:序列化
+#pickle.load:反序列化
+import pickle
+str = '生活不应只有眼前的苟且，还要有诗和远方'
+with open('D:\qq\Bin\zhaos.txt','wb') as f:
+    pickle.dump(str,f)
+
+import pickle
+with open('D:\qq\Bin\zhaos.txt','rb') as g:
+    print(pickle.load(g))#['sdgfdf', 'adgsdf'] 由此可见，我们所输出的内容和所输入的完全一样（包括格式），所以命名是不需要添加任何格式
+
+#持久化-shelve
+#持久化工具
+#类似于字典
+#open,close,功能
+
+#使用shelve创建文件，并关闭
+import shelve
+shv = shelve.open('shv.db')
+shv['one']=1
+shv['two']=2
+shv['three']=3
+shv.close()
+#创建的shv文件并不是及单独的一个文件而是一组文件（shv为数据库）
+
