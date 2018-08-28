@@ -1,0 +1,158 @@
+#常用模块
+#calendar,time,daretime,timeit,os,shutil,zip,math,string,
+#上述所有模块都行该先导入，string 除外
+#calendar，time，datetime与日立相关
+
+#######calentar模块
+
+import calendar
+cal=calendar.calendar(2018)
+print(cal)
+#用以上方法进行日历的导出
+
+#isleap:判断某一年是否是闰年；返还（布尔值）
+print(calendar.isleap(2000))#不清楚状况为啥要用print输出
+#leapdays:获取指定年份之间的闰年的个数
+print(calendar.leapdays(2000,2008))
+#注意括号两边的数值应该左大右小，并且做去得到，右取不到。
+
+#month()获取某个月的日历字符串
+m3=calendar.month(2018,3)
+print(m3)
+#monthrange()获取一个月第一天在周几开始和天数
+print(calendar.monthrange(2018,3))#(3, 31)第一个表述周三，第二个表述31天
+#monthcalender()饭换一个月每天的矩阵表
+print(calendar.monthcalendar(2018,3))#返还一个本月的矩阵
+
+#prcal:print calendar 直接打印日历
+calendar.prcal(2018)#既直接输出
+#weekday() 获取周几
+print(calendar.weekday(2018,3,20))#年月日
+
+
+#######time 模块
+
+    #时间戳
+        #一个时间表示，根据不同的语言，可以是整数也可以是浮点数
+        #是从1970年1月1日0时0分0秒到现在经历的秒数
+        #如果表示1970年以前或者太遥远的未来，可能异常
+        #32位操作系统能支持到2038年，
+
+##UTF时间
+    #UTF有称世界调节时间以英国格林尼治天文台时间为参考的时间
+##夏令时时间
+##时间元组
+    #一个包含内容的普通元祖，
+'''
+import time
+#timezone:当前系统的时区和UTC时间相差的'秒数'，在没有夏令时情况下的间隔
+print(time.timezone)#-28800
+#altzone  获取当前时区与UTF时间相差的秒数，在有夏令时时间的情况下
+print(time.altzone)#-32400
+#daylight 检测当前是否为夏令时时间，
+print(time.daylight)  #0  代表是
+#time.time()表示当前时间与1970年相差的秒数
+#localtime()输出当前的时间
+print(time.localtime())
+#可以通过点好运算符进行输出时间的某一元素
+print(time.asctime(time.localtime()))#直接以英文的方式输出时间
+
+#ctime: h获取字符串花的当前时间
+print(time.ctime())
+
+#mktime()使用时间元组获得对应的时间戳
+lt=time.localtime()
+mt=time.mktime(lt)
+print(type(mt)) #<class 'float'>
+print(mt) #1522315565.0
+
+#clock:获取cpu时间，
+print(time.clock()-time.clock())
+#sleep:使程序进入睡眠状态，N秒后继续
+for i in range(10):
+    print(i, end=' ')
+    if i==3:
+        time.sleep(0)# time.sleep(i):括号中应该加入睡眠时间。
+
+#strftime:将时间元组转化为自定义的字符串格式
+
+%y 两位数的年份表示（00-99）
+%Y 四位数的年份表示（000-9999）
+%m 月份（01-12）
+%d 月内中的一天（0-31）
+%H 24小时制小时数（0-23）
+%I 12小时制小时数（01-12）
+%M 分钟数（00=59）
+%S 秒（00-59）
+%a 本地简化星期名称
+%A 本地完整星期名称
+%b 本地简化的月份名称
+%B 本地完整的月份名称
+%c 本地相应的日期表示和时间表示
+%j 年内的一天（001-366）
+%p 本地A.M.或P.M.的等价符
+%U 一年中的星期数（00-53）星期天为星期的开始
+%w 星期（0-6），星期天为星期的开始
+%W 一年中的星期数（00-53）星期一为星期的开始
+%x 本地相应的日期表示
+%X 本地相应的时间表示
+%Z 当前时区的名称
+%% %号本身
+
+import time
+t=time.localtime()
+print(time.strftime("%Y年%m月%d日%H ：%M",t))
+'''
+
+#####datetime模块
+
+#datetime提供日期和时间的运算和表示
+import datetime
+#datetime.date 一个理想的日期，提供年月日
+print(datetime.date(2018,3,26))
+print(datetime.date(2018,3,26).day)
+print(datetime.date(2018,3,26).month)
+print(datetime.date(2018,3,26).year)
+
+#datetime.datetime
+from datetime import  datetime
+dt=datetime(2018,3,30)
+print(dt) #2018-03-30 00:00:00
+print(dt.today())#2018-03-29 18:09:53.390202
+print(dt.now())#2018-03-29 18:09:53.390201
+
+##timedelta:表示一个时间间隔
+#我这好像没法用……
+'''
+from datetime import datetime
+from datetime import timedelta
+t1=datetime.now()
+print(t1.strftime("%Y-%m-%d %H:%M:%S"))
+td=datetime.timedelta(hours=1)
+print((t1+td).strftime("%Y-%m-%d %H:%M:%S"))
+以此种方法进行时间后移
+'''
+#timeit 时间测量工具
+
+#生成列表的两种比较方法
+#如果单纯比较生成列表的时间，很难实践
+
+##timeit可以执行一个函数，来测量一个函数的执行时间
+'''
+import timeit
+def do():
+    num=2
+    for i in range(num):
+        print("{}".format(i))
+t=timeit.timeit(stmt=do,number=10)
+print(t)
+'''
+import timeit
+s='''
+def do(num):
+    for i in range (num)
+        print("{}".format(i))
+'''
+t=timeit.timeit("do(num)",setup=s+"num=2",num=10)
+print(t)
+#由上式可知，setup负责把环境变量准备好。一次来调用上方代码，此代码结果与不用setuo时结果一致

@@ -1,0 +1,129 @@
+#类的成员描述符（属性）
+#为了再累中对类的成员属性进行相关操作而创建的一种方式
+#get 获取属性
+#set 修改或者添加属性操作
+#delete：删除属性操作
+#使用方法
+    #1，实用类实现描述器
+    #2，使用属性描述符
+    #3，使用property函数
+        #property(fget,fset,fdel,doc)
+    #
+class person():
+    def fget(self):
+        return self._name*2
+    def fset(self,name):
+        self._name=name.upper()#输出姓名以大写形式保存
+    def fdel(self):
+        self._name="noname"
+    name=property(fget,fset,fdel,"对name进行一下操作")
+p=person()
+p.name="nkljkl"
+print(p.name)
+#无论南中修饰符都是为了对成员属性进行相应的控制
+    #类的方法：适合多各类中多个属性共用一个描述符
+    #property：在当前类中使用，可以控制一个类中的多个属性
+    #属性修饰符：适用于当前类中使用，控制一个类中的一个属性
+#类的内置属性
+    #__dict__:以字典的方式总是类的成员组成
+    #__dou__:获取类的文档信息
+    #__name__:获取类的名称。如果在模块中的使用，获取模块的名称
+    #__bases__:获取某个类所有的父类，以元组的方式显示
+#类的内置属性距离
+class a():
+    '''
+    这种类型是一个类的说明文档既（__doc__函数将显示的内容）
+    '''
+    pass
+#类的魔术方法
+    #魔术方法救赎不需要人为调用的方法，基本是在特定的时刻自动触发
+    #魔术方法统一特征：方法名被前后两个下划线包裹
+    #'__init__':构造函数
+class a():
+    def __init__(self):
+        print('我已经被调用了')
+A=a()#我已经被调用了,由此可见已经被自动调用
+    #__new__:对象实例化方法（除非特殊情况，尽量少用）
+    #__call__:当对象被以函数的方式调用时，自动调用__call__函数，如下例子
+class s():
+    print('a;dfja')
+    def __call__(self):
+        print('自动调用')
+A=s()
+A()#一函数的方式调用实例化对象
+#结果为"自动调用"
+    #__str__:当对象为当做字符串使用时自动调用
+    #如下例
+'''
+class s():
+    def __init__(self):
+        print('我又回来了')
+    def __str__(self):
+        print('666666')
+a=s()
+print(a)#结果<__main__.s object at 0x000002620F513BE0>
+#如果我们希望它以一种字符的形式输出应该添加__str__魔法函数
+#此时结果为：我又回来了 666666
+#__repr__:返还字符串，与__str__有些区别
+#__set__
+#__get__
+#__delete__
+#__getattr__:访问一个不存在的属性时触发
+'''
+class G():
+    name="sfv"
+    age=12
+    def __getattr__(self,name):
+        print("没有找到")
+D=G()
+print(D.name)
+print(D.addr)
+#结果为sfv 没有找到 None显然当D.addr不存在时自动调用__getattr__魔法函数。
+    #__setattr__:当对成员属性进行设置的时候自动调用用该函数
+    #__setattr__函数中的参数分别为
+        #self 用来获取当前对象
+        #被设置属性的名称，以字符串形式出现（key）
+        #需要对属性名称设置的值（value）
+        ####以上三者皆为形参不进行具体的赋值或命名
+class person():
+    def __init__(self):
+        pass
+    def __setattr__(self, key, value)           :#__setattr__函数是当为某一属性赋值的时候自动调用的魔法函数
+        print('设置属性{0}'.format(key))         #它是自动调用的且在函数外部、且属性被赋值时自动调用，所以千万
+    #self.key=value                               #不能再__setattr__函数内部进行类似于self.key=value 的赋值操作
+p=person()                                        #否则函数会因为一直调用value赋值给key而进入死循环。
+p.age=18
+#此种情况下为了避免死循环，通常调用父类魔法函数
+    #__gt__:进行大小判断的时候触发的函数
+        #参数
+            #self
+            #第二个参数是第二个对象
+            #
+class a():
+    def __init__(self,name):
+        self._name=name
+    def __gt__(self, other):
+        print("将{0}与{1}进行比较".format(self._name,other._name))
+        return self._name < other._name
+stu1=a("adfvad")
+stu2=a("dfba")
+print(stu1 < stu2)#True
+#由此可见最后一句输出语句只是一个启动__gt__函数的一个按钮，其实并不具有真正根本上的比较大小，真正根本上的比较大小的地
+#方位于__gt__函数的return语句，其中说明了比较的方向，和比较的方式（大于，小于，还是等于），当return中比较出结果之后，print（）
+#语句中的比较再在此基础上进行，如果两式同向则为ture否则为false。
+#####实例方法
+class person:
+    def eat(self):
+        print(self)
+        print('eat...')
+#####类方法
+@classmethod
+def play(cls):
+    print(cls)
+    print("playing...")
+####静态方法
+#不需要用的一个参数表示自身或者类
+@staticmethod
+def say():
+    print("saying...")
+

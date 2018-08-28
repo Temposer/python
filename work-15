@@ -1,0 +1,111 @@
+##装饰器：
+
+def hello():
+    print("hello world")
+f= hello
+print(f()) #hello world由此可见，将函数hello传递给函数f，
+print(id(f))  #1607550394576
+print(id(hello))#1607550394576 有结果可以看出，两个函数为一个函数。
+
+#对于hello 函数进行新的改进，如：每次打印hello之前打印当前时间
+#而在实现此功能的同事不能改变函数本身
+
+###装饰器：
+    #带不同的代码上无限制的扩展函数功能的一种机制，本质上讲，张诗琪是一个返还函数的高阶函数。
+    #装饰器的使用方法：在被扩展函数前面加上@+函数名（里面有需要扩展的功能）
+import time
+def printtime(f):    #函数f为即将被调用的函数，所以装饰器相当于一个高级函数
+    def di(*arg,**kwarg):
+        print("time:",time.ctime())
+        return f(*arg,**kwarg)
+    return di
+#装饰器函数是十分固定的：函数参数必须是一个函数，既装饰器函数必须时一个一函数为参数的高级函数，
+#因此是必须要用到高级函数的调用，所以要拓展的功能基本上写在内部函数上然后由第一个函数进行return。
+#注意：内部函数必须是含两人从参数的，此为固定用法，
+@printtime
+def helloe():
+    print("hello world")
+helloe()
+#time: Thu Apr 12 18:49:58 2018
+#hello world
+#由此可见：将hello函数的功能拓展为每一次调用返还调用时间，
+
+#装饰器的好处：只需定义一个函数，就可以注释任何函数
+#装饰器一旦被使用，将立刻进入函数功能中。
+
+#手动执行装饰器：
+def hellod():
+    print("手动执行")
+f=printtime(hellod)
+f()#time: Thu Apr 12 19:04:42 2018    手动执行
+a=int("12345",base=8)#base函数用于确定函数类型
+print(a)
+#由此可见将字符串转换成八进制的数字，
+
+def int8(x,y):
+    return int(x,base=y)
+print(int8("12345",16))
+
+##偏函数:
+#参数固定的函数，相当于一个特定参数的函数体
+
+import functools
+int8=functools.partial(int,base=8)
+#由此可见，片函数的作用就是使函数惯性的默认一个限制条件，如式子中的'base=8',适用于当多次引用同一个函数时，
+print(int8("12345"))#5349
+
+l=["zhao","qian","sun"]
+s=[51,68,68]
+z=zip(l,s)
+for i in z:
+    print(i)
+#('zhao', 51)
+#('qian', 68)
+#('sun', 68)
+# #由此可以看出zip的作用
+
+em=enumerate(l)
+a=[i for i in em]
+print(a)
+#[(0, 'zhao'), (1, 'qian'), (2, 'sun')]
+#由此可以看出enumerate的作用
+
+em=enumerate(l,start=100)
+f=[i for i in em]
+print(f)
+#[(100, 'zhao'), (101, 'qian'), (102, 'sun')]
+#可以看出在start的作用
+
+###collections模块内容：
+import collections
+Point = collections.namedtuple("Point",['x','y'])
+p=Point(11,55)
+print(p.x)#11
+print(p.y)#55
+print(p[0])#11   也可用调用format函数的方法进行调用
+#类似于定义域与调用函数的方法来进行使用namedtuple方法
+
+
+crile=collections.namedtuple("crile",['x','y','r'])
+c=crile(11,22,55)
+print(c)#crile(x=11, y=22, r=55)
+
+from collections import deque
+q=deque(['a','s','d'])
+print(q)#deque(['a', 's', 'd'])
+q.append("f")
+print(q)#deque(['a', 's', 'd', 'f'])
+q.appendleft("c")
+print(q)#deque(['c', 'a', 's', 'd', 'f'])
+#可看出作用
+
+from collections import Counter
+c=Counter("vafgbafargdfabafcxxb0")
+print(c)#Counter({'a': 5, 'f': 4, 'b': 3, 'g': 2, 'x': 2, 'v': 1, 'r': 1, 'd': 1, 'c': 1, '0': 1})
+#将结果作为一个字符串的形式输出
+
+
+
+
+
+

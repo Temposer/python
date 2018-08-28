@@ -1,0 +1,211 @@
+#继承
+#继承是一个类或的使用另外一个类中的成员属性和方法
+#A是一个B（如老师是一个人）则A继承B。子类一定是父类的一个子集。
+class person():
+    name='sdfg'
+    age=232
+    def slsleep(self):
+        print('afdbfdva')
+class stu(person):   #此处调用分类的方法与java不同可直接放入函数形参中
+    pass
+s=stu()
+print(s.name)   #sdfg
+#j继承的特征
+    #所有的类都继承自object类，既所有的类都继承自object的子类
+    #子类一但继承，则可以继承父类中出私有成员变量外的所有内容
+    #子类继承父类后并没有将父类成员完全赋值给子类，而是通过调用关系进行调用
+    #子类中可以定义独有的成员和属性
+    #如果子类中的变量和方法与父类中的有重复，应优先使用之类中的（既子类覆盖父类）
+    #子类如果想扩充父类的方法，可以定义新的方法，也可以将父类中的成员重用，可以使
+    #用“父类名.父类成员”的格式来调用成员。
+class person():
+    name='noname'
+    __age=0#两个下划线为私有变量，在子类中不可以被访问，
+    _petname='sce'#一个下划线为保护变量，可以在子类中访问
+    def sleep(self):
+        print('adgdadf')
+    def work(self):
+        print('make some money')
+class Teacher(person):
+    xb='nv'
+    def work(self):
+        person.work(self)
+        print('qiubaoyang')#扩充父类自己需要在子类方法中先将父类的方法引入在现场写子类方法
+t=Teacher()
+print(t.name)
+print(t.xb)
+print(t.work())
+    #受保护不可以在外部访问，#不知道为啥又可以了
+#继承变量函数的查找顺序问题
+#1.任何情况下优先查找自己的变量
+#2.如果没有则查找父类
+#3.对于构造函数，如果在本类中没有定义，则调用弗父类的构造函数（此处与java有不同）
+#如果本类中有构造函数则不需要向上查找。
+class dog():
+    def __init__(self):
+        print('adfvdf')#此类方法为构造函数，注意构造函数的书写方法是一定的，不可以随意更改
+                        #构造函数在任何时候都是首先执行
+you=dog()#输出为adfvdf，可见已完成调用构造函数
+class animel():
+    pass
+class paxing(animel):
+    def __init__(self):
+        print('paxingdongweu')
+class dog(paxing):
+    def __init__(self):
+        print('i an a dog')
+you=dog()
+#实例化变量时，形参括号中的变量名应该与构造方法中的形参括号中的变量名一致。
+class cat(paxing):
+    pass
+mi=cat()
+#如果子类没有构造方法，则调用父类构造方法
+#对于构造方法一次向上查找，当发现构造函数时，将不再向上查找。
+#当对于构造函数实例化时，参数名称与个数必须与构造函数一致。
+#python中super与java中的不同：
+#1，他不是关键字，而是一个类
+#super的作用为，可以获取父类中的一个类
+#它对于父类没有任何意义，但可以调用父类
+#super可以调用父类中的构造函数
+class a():
+    pass
+print(a.__mro__)
+#(<class '__main__.a'>, <class 'object'>)
+#'__mro__'函数可以查询调用类的父类列表。
+#单继承和多继承
+     #单继承：每个类只能继承一个类
+     #多继承：每个类可以继承多各类
+     #（推荐多继承）
+#单继承和多继承的优缺点
+     #单继承
+        #传承有序清晰语法简单隐患少
+        #功能不能无限扩展，只能在当前唯一的继承链中扩展
+     #多继承
+        #
+        #
+class fish():
+    def __init__(self,name):
+        self.name=name
+    def swim(self):
+        print('adfsvf')
+class bridge():
+    def __init__(self,name):
+        self.name=name
+    def fly(self):
+        print('favdf')
+class persion():
+    def __init__(self,name):
+        self.name=name
+    def work(self):
+        print('sdfbs')
+class chaoren(persion,bridge,fish):
+    def __init__(self,name):
+        self.name=name
+#在多继承中，子类在继承父类时参数顺序是有的。
+#多个子类继承自同一个父类，这些子类不同意各类继承，于是继承关系图表现为菱形，简称菱形问题
+#关于多继承中的MRO
+   #MRO就是多继承中，用于保存顺序的一个顺序表
+   #python本身采用C3算法类度偶多继承的另寻继承进行计算结果
+   #MRO列表的计算原则：
+      #子类永远在父类前面
+      #如果有多个父类，则输出顺序为我们写入父类的顺序
+      #如果多个类继承一个父类，孙子类中只会选取继承语法括号中第一个
+#构造函数
+#构造函数自动被调用
+#如果子类没有构造函数，则向上查找，直到找到位置
+class A():
+    pass
+class B(A):
+    def __init__(self):
+        print("B")
+class C(B):
+    pass
+c=C()#python中字母大小写敏感
+#调用函数时，调用形参的个数应该与构造偶函数参数个数相同
+#如果子类想要扩充父类构造函数的功能应该:
+      #1.通过父类名调用构造函数，然后再增加自己的构造函数
+###多态：同一个对象在不同的情况下有不同的状态出现
+    #多态不是语法而是一种设计思想（不提倡）
+    #多态性：一种调用方式，不同的执行结果
+###Mixin设计模式
+      #主要采用多继承的方式对类进行扩展
+      #Mixin强调对功能的增加。
+      #Mixin类似于事物变化中的物理变化，改变存在形式，而不改变本质。
+      #使用多继承来实现Mixing
+    ####注意：它必须表示为实现了单一的功能，而不是变为某一物品。
+        #职责必须单一，如果有多个功能，这些多个Mixin
+        #Mixin不能依赖于子类的实现
+        #子类即使没有继承Mixin类，也照样够左，只是缺少了某一功能。
+    ###有点：
+        #使用Mixin可以在不对类进行任何修改的情况下，扩充功能
+        #可以方便的组织和维护不同功能组件的划分
+        #可以根据需要任意组合
+        #可以避免创建更多的新类，导致类的混乱。
+class person():
+    name="lisi"
+    age=16
+    def eat(self):
+        print("eat.....")
+    def drink(self):
+        print("drink....")
+    def sleep(self):
+        print("sleep....")
+class teacher(person):
+    def work(self):
+        print("woek....")
+class stu(person):
+    def study(self):
+        print("study....")
+class tuter(teacher,stu):
+    pass
+t=tuter()
+print(tuter.__mro__)#列举父类mro函数在列举列表时是由下向上的顺序。
+#(<class '__main__.tuter'>, <class '__main__.teacher'>, <class '__main__.stu'>, <class '__main__.person'>, <class 'object'>)
+print(tuter.__dict__)
+print("*"*50)
+class person():
+    name="lisi"
+    age=16
+    def eat(self):
+        print("eat.....")
+    def drink(self):
+        print("drink....")
+    def sleep(self):
+        print("sleep....")
+class teacherMixin(person):
+    def work(self):
+        print("woek....")
+class stuMixin(person):
+    def study(self):
+        print("study....")
+class tuterm(teacherMixin,stuMixin):
+    pass
+tt=tuterm()
+print(tuterm.__mro__)
+####Mixin只是增加一个功能，而不是增加一个类
+#issubclass检测一个类是否为另一个类的子类
+class A():
+    pass
+class B(A):
+    pass
+class C(B):
+    pass
+print(issubclass(B,A))#True
+print(issubclass(C,A))#True
+print(issubclass(A,B))#False
+####isinstance 检测一个对象是否为一个类的实例
+class A():
+    pass
+a=A()
+print(isinstance(a,A))#True
+class A():
+    name="adsva"
+a=A()
+print(hasattr(a,"name"))#True
+print(hasattr(a,"age"))#False
+#hasattr:用于检测一个成员中是否有此类属性。
+#getattr:set attribute
+#setattr:get attribute
+#delattr:delete attribute
+
+

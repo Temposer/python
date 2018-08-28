@@ -1,0 +1,195 @@
+##与OS-操作系统相关
+#和操作系统相关，组要是文件操作
+#与操作系统相关，主要在于三个模块
+    #os，系统目录相关
+    #os.path，系统路径相关
+    #shutil，高级文件操作，目录树的操作，文件复制，删除，移动
+#路径：
+    #绝对路径：总是从根部开始的
+    #相对路径：基本以当前环境未开始的一个相对的地方
+
+#os模块
+# getcwd()获取当前目录
+#格式os.getcwd()
+#返还值：当前目录的字符串
+#当前目录及时程序在进行文件的相关操作，默认查找文件的目录
+import os
+print(os.getcwd())#D:\Anaconda\pc Work\my  python
+
+#chdir()改变当前的工作目录
+#格式：os.chdir(路径)
+#在输入尽量输入绝对路径
+
+#listdir()用于获取目录中所有子目录和文件的名称列表
+#格式：os.listdir(路径)
+#返还值：所有子目录和文件名称的列表
+print(os.listdir())
+
+#makedirs()递归创建一个文件夹
+#格式：os.makedirs(递归路径)
+#递归路径：多个文件夹层层包含的路径就是递归路径。例如 a/b/c...
+'''
+print(os.makedirs("zhaoisan"))
+'''
+#当递归路径不是绝对路径时，将默认为创建一个新的文件夹在当前的目录下
+
+#system()运行系统命令shell命令
+#格式：os.system(系统命令)
+#返还值：打开一个shell或终端界面
+#print (os.system('ls'))
+
+#getenv()获取指定的系统环境变量
+#格式：os.getenv()
+#返还值：指定环境变量名对应的值
+#print(os.getenv(""))
+
+#exit()退出当前程序
+#格式：exit()
+#返还值：无
+
+###值部分
+#os.curdir:当前目录
+#os.pardir:父目录
+#os.sep:当前系统的路径分隔符
+#windous"\"
+#linux"/"
+#os.linesep:当前系统路径的路径分隔符
+#windous"\r\n"
+#linux"\n"
+#os.name:当前系统名称
+#windows:nt
+#linux:posix
+print(os.pardir)
+print(os.curdir)
+print(os.sep)
+print(os.linesep)
+print(os.name)
+
+
+#os.path模块，和路径相关的模块
+
+#abspath()将路径转换成绝对路径
+#格式：os.path.abspath('路径')
+import os.path as op
+abs=op.abspath('.')
+print(abs)
+
+#basename()获取路径中的文件名部分
+#格式：os.path.basename('路径')
+print(op.basename('D:\Anaconda\pc Work\my  python'))
+#my  python返还值为文件名字符串
+
+#join()将多个路径拼接成一个路径
+#格式：os.path.join('路径1'，'路径2')
+print(op.join('D:\图片\古风','风景'))
+#在使用join路径拼接时吗，对于后面的路径应使用相对‘相对路径’。
+
+#split()将路径切割为文件夹部分和当前文件部分
+#格式:os.path.split('路径')
+print(op.split('D:\Anaconda\pc Work\my  python'))
+#('D:\\Anaconda\\pc Work', 'my  python')
+
+#isdir()检测是否为目录
+#格式：os.path.isdir('路径')
+#应返还布尔值
+print(op.isdir('D:\Anaconda\pc Work\my  python'))
+#True
+
+#exists()检测文件或目录是否存在
+##格式：os,.path.exists('路径')
+#应返还布尔值
+print(op.exists('D:\Anaconda\pc Work\my  python'))
+#True
+print(op.exists('D:\Anaconda\pc Work\my  python\zhaolisan'))
+#False
+
+
+##### shutil  模块
+#copy()复制文件
+    #格式：shutil.copy(来源路径，目标路径)
+    #返还值：返还目标路经
+    #拷贝的同时重命名
+import shutil
+#print(shutil.copy('D:\Anaconda\pc Work\my  python\zhaoisan','D:\Anaconda\pc Work\my  python\zhaolisan'))
+
+#copy2()复制文件，保留元数据（文件信息）
+#格式：shutil.copy2(来源路径，目标路经)
+#返还值：返还目标路经
+#注意：copy与copy2的唯一的区别在于copy2赋值文件时尽量保存元数据内容
+
+#copyfile()讲一个文件中的内容复制到另一个文件当中去
+#格式：shutil.copyfile('原文件路径'，'目标文件路径')
+
+#print(shutil.copyfile('D:\jsj\one.txt','D:\jsj\wo.txt'))
+#linux系统无返还值，windows系统返还目标路经
+
+#move()移动文件夹/文件
+#格式：shutil.move('原路径'，'目标路经')
+#返还值：目标路经
+#print(shutil.move('D:\jsj\one.txt','D:\jsj\哈默手稿'))
+#此时应注意linux系统对于文件的移动在于对目录的权限而非文件
+
+
+##归档和压缩
+    #归档：把多个文件或者文件夹合并到一个文件中
+    #压缩：用算法把多个文件或者文件夹无损或者有损的合并到一个文件之中去
+
+#make_archive()归档操作
+#格式：shutil.make_archive('归档之后的目录和文件名（路径）'，'后缀','需要归档的文件（路径）')
+#返还值：归档之后的地址
+print(shutil.make_archive('D:\jsj\zhao','zip','D:\jsj\哈默手稿\irst'))
+#D:\jsj\zhao.zip
+#注意当输入文件后缀时必须要输入下所文件正规的后缀，否则报错
+
+#unpack_archive('归档文件地址','解包文件地址')
+#返还值：解包文件地址
+print(shutil.unpack_archive('D:\jsj\zhao.zip','D:\jsj\哈默手稿\df'))
+#返还值Linux与windows不同，Linux返还解包文件地址，windows返还none
+print(shutil.unpack_archive('D:\excipse\works.rar','D:\excipse\jsb'))
+
+import zipfile
+zp=zipfile.ZipFile('D:\jsj\zhao.zip')
+#zip.ZipFile作用为创建一个zipfile对象，使用路径的方式将建中指定路径的压缩包赋值给他
+#ZipFile.getinfo(name)
+#获取zip文档内指定文件的信息，返还一个zipfile.ZipInfo对象，它包括文件的详细信息。
+'''
+print(zp.getinfo('wo.txt'))
+'''
+#<ZipInfo filename='wo.txt' compress_type=deflate filemode='-rw-rw-rw-' file_size=12 compress_size=15>
+
+#ZipFile.namelist()
+#获取zip文档中所有文件名称列表
+'''
+print(zp.namelist())
+'''
+#['one.txt', 'wo.txt']
+
+#ZipFile.extractall("解压所路径")
+#将当前zipfile所代表的压缩包解压到指定文件夹下的文件中
+'''
+zs=zipfile.ZipFile('D:\图片\图片.zip')
+print(zs.extractall('D:\jsj\哈默手稿\irst'))
+'''
+#有结果可见extractall方法所产生的所用与上述shutil.unpack_chive('','')解压包方法所长生的作用是一致的
+
+
+###random    生成随机数
+#所有的随机数都是伪随机的（可被找到规律）
+import random
+print(random.random())#每次生成都会随机
+print(random.random()*100//1)
+
+#choice()随机返还序列中的某一个值
+l=[i for i in range(1,10)]
+print(random.choice(l))
+a=['sui','zhang','zhao']
+print(random.choice(a))
+
+#shuffle   随机打乱列表
+s=[i for i in range(1,10)]
+print(s)
+random.shuffle(s)
+print(s)
+#此处注意，不可以直接print返还值，应print已经被打乱的列表
+
+#randint（,）随机产生一个整数包含写入的数

@@ -1,0 +1,151 @@
+#元组的函数
+a=(1,2,3,4)
+print(len(a))    #len()函数作用为输出元组的长度
+print(max(a))    #max()函数作用为输出元组中的最大值
+print(min(a))    #min() 函数输出元组最小值
+#如果元组中有多个最大最小值，则实际返还那个。
+l=[1,2,3,4,5]
+a=tuple(l)    #将列表中元素返还到元祖中
+print(a)
+t=tuple()
+print(t)     #结果为()
+a=(1,2,3,4,5,6,7,8,9,1,2,3)
+print(a.count(1))#count()  函数用于计算元组中某个元素的个数
+print(a.index(7))#index()  函数用于指明某个元素在元组中的位置（既下标）
+print(a.index(1))#当元组中有多相同元素时，index()函数指明第一个出现的元素位置
+a=1
+b=3
+print(a)
+print(b)
+#java程序员 进行两个变量的调换
+c=a
+a=b
+b=c
+print(a)
+print(b)
+print("*"*20)
+#python 方法 进行两个变量调换
+a,b=b,a
+print(a)
+print(b)
+s=set()         #集合的定义为set
+print(type(s))
+d={}
+print(type(d))   #大括号内一定要有值，否则为dict类型
+#集合内的元素具有唯一性，可以借此排除重复数据。
+#集合内的数据进行成员检测
+#in      not in
+#集合的便利操作：
+#应该使用for循环
+s={1,2,3,"i love you"}
+for i in s:
+    print(i)
+s={(1,2,3),("i","ove","you")}
+for i,j,k in s:
+    print(i,"...",j,"...",k)#  i,j,k……的个数，与集合中元组中元素的个数决定，非元组的个数
+s={22,33,55,44,77,88,66}
+print(s)
+ss={i for i in s}
+print(ss)
+sss={i for i in ss if i % 2==0}####注意括号形式
+print(sss)
+s1={1,2,3,4,5,6}
+s2={"i","love","you"}
+s={i*j for i in s1 for j in s2}
+print(s)
+a=[1,2,3,4]
+for i in a:
+    print(i*"v")
+l=[1,2,3,4]
+print(set(l))
+print(type(set(l)))   #set函数作用为可以将数组变为集合，类似于list()函数可以将其他类型的函数转换成list类型。
+s={1,2,3,4}
+s.add(200)
+print(s)    #add()函数的作用为在集合末尾添加一个元素类似于列表函数中的append()函数
+s={1,2,3,4,5}
+print(id(s))#1516595370696
+s.clear()
+print(id(s))#1516595370696     由此可见 clear的作用为在原有列表的基础上清空
+s={1,2,3,4,5}
+print(id(s))
+c=s.copy()               #copy()函数的作用为拷贝
+print(c)
+print(id(c))
+s.remove(3)              #remove()函数的作用为移动集合中某个元素的值，也可以进行删除，但如果删除对象不存在，将报错。
+print(s)
+s.discard(1)
+print(s)
+s.discard(100)           #discard()函数的作用也是进行指定对象的删除，与renove()函数不同的是如果删除对象不存在，将不报错
+print(s)
+s={1,2,3,4,5,6}
+d=s.pop()               #pop()函数的作用为在集合中随机删除某一个元素。但一般会删除第一个元素（纠结！纠结！！！）
+print(d)
+print(s)
+s1={1,2,3,4,5,6,7}
+s2={2,5,6,7,8,9,10}
+s=s1.intersection(s2)    #intersection()函数用于求i集合与j集合的并集
+print(s)
+a=s1.difference(s2)      #difference()函数用于求集合i与集合j的差集
+print(a)
+b=s1.issubset(s2)         #isssubset()函数用于判断i集合是否为j集合的子集
+print(b)
+d=s1.issuperset(s2)       #issuperset()函数用于判断i集合是否为j集合的母集
+print(d)
+
+###frozen set   冰冻集合
+s=frozenset()
+print(type(s))#<class 'frozenset'>  此类集合被冰冻，以为出了修改功能不具有之外，其余与一般集合无差异
+d=dict()
+print(d)    #创建一个空字典
+d={"one":1,"two":2,"three":3}#  创建有值的字典，必须以键值对的形式输入，每一组之间用冒号隔开，键值对之间用逗号隔开
+print(d)
+'''
+d=dict({"one":1,"two":2,"three":3})
+print(d)
+d=dict(one=1,two=2,three=3)
+print(d)
+d=dict([("one,1"),("two,2"),("tree",3)])
+print(d)
+'''
+#以上三种输出的结果相同。是字典的三种不同输出形式
+#字典中的数值都是由键值对组成的：既k v对（既属性，数值）
+          #k：必须是可哈希的值，如int string float tuple,但是list set dict类型的不可以
+          #v:任何值。
+'''
+v={'zhao':1,'qian':2,'sun':3}
+print(v['zhao'])   #输出“zhao”这个键所对应的值既“1”
+v['zhao']=200      #对“zhao”这个键重新复制
+print(v)
+del v['zhao']         #del()函数的作用为，删除“zhao”这个键及其所对应的值。
+print(v)
+s={"one":1,"two":2}
+print(s)
+for k in s:
+    print(k,d[k])  #此时 k为键
+s = {"one": 1, "two": 2}
+for k in s.key():
+    print(k,s[k])
+s={"one":1,"two":2}
+for v in s:
+    print(s[v],v)
+s={"one":1,"two":2}
+for v in s.value:
+    print(k,"...",v)
+#以上四种均为遍历字典键值对的方法、
+'''
+d={"one":11,"two":2}
+dd={k:v for k,v in d.items()}
+print(dd)
+d={"zhoa":1,"aofd":2}
+print(str(d))    #str()函数的作用为返还字典的字符串的形式。
+#clear() 函数的作用为清空字典。
+print(d.items())    #items()函数的作用为将键值对的格式转换成元组的格式
+print(d.keys())     #keys()函数的作用为将字典中的键组合成一个整体。
+print(d.values())   #values()函数的作用为将字典中的值全部取出组成整体。
+d={"sdfg":12,"adsfa":65}
+print(d.get("sdfgs"))    #输出指定键位的数值，如果没有此件返还None。
+print(d.get("dffds",100)) #此类方法既设置一个，默认值，当指定键位不存在是，输出默认值。
+#fromkeys使用指定序列作为键，使用一个值作为作为字典所有键的值。l
+l=["sdg","sdfgsgd","aser"]
+s=dict.fromkeys(l,"666")
+print(s)

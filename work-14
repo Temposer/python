@@ -1,0 +1,144 @@
+#log模块资料
+#https://www.cnblogs.com/y.yds/p/6901864.html
+
+###pyhon语言的高级用法
+#基于lambda演算的一种编程方式
+    #程序中只有函数
+    #函数可以用于参数，同样作为返还朱
+    #纯函数式编程语言：lisp,hasksll
+#python函数式编程只是借鉴了一些函数式编程的特点，
+
+#lambda表达式（匿名函数）
+    #不是一个代码块，只是一个表达式，
+    #可以有一个或者多个参数，需用‘，’隔开。
+    #以lambda开头，然后是参数，参数后应该用':'与函数主体
+stu=lambda x:x*100
+print(stu(2))
+
+#把函数作为参数调用的函数，成为告诫函数
+def funca():
+    print("zhao")
+funcs=funca
+funcs()  #zhao 由结果见证
+#函数名称既然可以作为变量也可以作为参数进行函数见得传递
+def a(n):
+    return n*100
+def b(n):
+    return a(n)*3
+print(b(5))
+def func(n,f):
+    return f(n)*3
+print(func(9,a))#由此可见使用函数作为参数可以使用成功
+
+####系统高级参数  map
+#愿意就是映射，几把集合或者列表中的元素按照一定规律进行操作，生成一个新的了表或者集合
+#map函数是系统给提供的具有映射功能的函数，返还值是一个迭代对象
+l1=[1,2,3,4,5,6,7]
+print(l1)
+l2=[]
+for i in l1:
+    l2.append(i*10)#append 函数作用为将有一些元素放入到一个新的列表中。
+print(l2)
+#以上是使用一个旧的方法进行操作
+
+
+#以下为使用map函数对列表中的每一项进行单独操作：
+def abb(n):
+    return n*10
+l=map(abb,l1)
+for i in l:
+    print(i,end=" ")
+#注意：map函数返还的只是一个可迭代的类型，所以要使用for 循环来进行遍历，不可以直接进行print()输出；
+
+
+###reduce
+    #愿意为缩减归并
+    #把一个可迭代的结果最后归并为一个结果
+    #对于函数的要求：必须由两个参数，必须有返还的结果。
+    #reduce 与要导入functools包
+print("")
+from functools import reduce
+def add(i,j):
+    return i+j
+print(reduce(add,[1,2,3,4,5,6]))
+#对于add 的reduce操作；既：累加操作；
+
+###filter函数：
+    #过滤函数：对于一组数据进行过滤，符合条件的函数会进入另一个新的函数
+    #map比较：
+        #相同：会对列表里面的每一个元素逐一进行操作
+        #不同：filter函数只有符合条件的才会进入另一个新的列表
+    #filter函数写法：
+def fil(a):
+    return a%2==0
+l=[1,2,3,4,5,6,7,8,9]
+j=filter(fil,l)  #由此可见filter 的用法为filter（一个限定条件的函数，加上一个数组）返还值为一个可迭代的对象，需用for循环进行迭代输出。
+for i in j:
+    print(i , end=" ")
+print("")
+###高级函数进行排序；
+    #key：在排序前对咩一个元素进行key函数运算，可以理解成，按key函数定义的逻辑进行排序
+    #在这方面python2与python3是有区别的；
+l=[9,8,7,5,4,1,2,3,6]
+print(sorted(l))#[1, 2, 3, 4, 5, 6, 7, 8, 9]
+print(sorted(l,reverse=True))#[9, 8, 7, 6, 5, 4, 3, 2, 1]
+#由此可见，reverse函数由于将输出值颠倒位置
+m=[-10,-20,-510,-60,651,81,20,51]
+print(sorted(m,key=abs))#[-10, -20, 20, 51, -60, 81, -510, 651]abs表示按照绝对值排序
+n=['sgd','FSF','VGNS','dfsg']
+print(sorted(n))#['FSF', 'VGNS', 'dfsg', 'sgd']
+print(sorted(n,key=str.lower))#['dfsg', 'FSF', 'sgd', 'VGNS']此为调用key函数的字符比较大小
+
+##返回函数
+    #函数可以给返还具体的值
+    #也可以返还一个函数作为结果
+#在函数内部建立函数用于返还函数
+def m(*a):
+    def n():
+        k = 0
+        for i in a:
+            k+=i
+            return k
+        return n
+a=m(1,2,3,4,5,6,7)
+
+##闭包：
+    #但一个函数在内部定义函数，并且内部函数应英语外部函数的参数或者局部变量，当内部函数被当做返回值，相关参数和变量报讯在返还回来的函数中，
+    #这种结果叫做闭包
+def count():
+    fs=[]
+    for i in range(1,4):
+        def f():
+            return i*i
+        fs.append(f);
+
+    return fs
+f1, f2, f3 = count()
+print(f1())  # 9
+print(f2())  # 9
+print(f3())  # 9
+
+#由此可见闭包是有缺陷的  每一个返回值都是在整个闭包都执行完毕之后才进行返回，
+#由此可见返闭包时不能存在循环变量
+#
+def counta():
+    def f(i):
+        def a():
+            return i*i
+        return a()
+        fs=[]
+        for j in range(1,4):
+            fs.append(f(j))
+        return fs
+
+f1, f2, f3 = counta()
+print(f1())
+print(f2())
+print(f3())
+#不知道为什么出不来理想的结果1,4,9
+
+
+
+
+
+

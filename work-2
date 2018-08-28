@@ -1,0 +1,127 @@
+def lizi():
+     print('adfa')
+     print('adf')
+lizi()
+def hello(person):
+    print('{},你好'.format(person))
+p='赵立三'
+hello(p)
+#其中person 为形参   p既 赵立三 为实参。
+def hello(man):
+    return "我已经和{0}打招呼了，{1}不理我".format(man,man)
+man="赵立三"
+hello=hello(man)
+print(hello)
+#return 一个重要作用就是，当一个函数顺序执行到return时，函数将被无条件终止，如果return和下面还有语句，将不被执行
+def hang(i):
+    for j in range(1, i + 1):
+        a = i * j
+        if a < 10:
+            print(a, end="  ")
+        else:
+            print(a, end=" ")
+    print('')
+def biao():
+
+    for i in range(1,10):
+        hang(i)
+
+
+biao()
+#print函数默认输出后自动换行
+help(print)
+#python  中形参是有默认值的，当不对形参赋值时，形参使用默认值。
+a='''
+def stu(name,age,gender="男"):#此处gender='男'只是给gender赋予一个处置，当有外来之传入时，gender将会改变。
+    if gender=="男":
+        print("欢迎{0}岁的python新学员{1}，欢迎{2}".format(age,name,"他"))
+    else:
+        print("欢迎{0}岁的python新学员{1}，欢迎{2}".format(age,name,"她"))
+name=input("请输入你的姓名")
+age=input("请输入你的年龄")
+gender=input("请输入你的性别")
+if gender=="男":
+    stu(name,age)
+else:
+    stu(name,age,gender)
+'''
+print(a)
+def stu(name,age,addr):
+    print("我叫{0}，我{1}岁了，我家住{2}".format(name,age,addr))
+stu(age=15,name="赵立三",addr="China")
+###此为关键字参数#当在调用函数，直接在函数中给函数的形参赋值时，可不必在意参数的位置顺序。如上
+
+##收集参数，把位置不能确定，不能和定义时的位置相互对应的参数，放入一个特定的数据结构中。
+#形参数名args不是必须要这么写的，但推荐这么写，约定俗成。
+#切记形参参数名之前必须有*号。
+def stu(*args):
+    print("进行一个简单的介绍")
+    #print(type(args))
+    for i in args:
+        print(i,end=" ")
+    print("")
+
+stu("sdf","sdfgsdf","sgdgf")
+stu("aasdf")
+#无论实参有多少个都会被装入args中。如需调用，需要用for循环。收集参数可不带任何实参。
+#关键字参数可以以字典的格式被放入收集参数。
+def sd(**kvargs):
+    print("自我介绍")
+    for i,v in kvargs.items():
+        print(i,"------",v)
+sd(name="asdf",age=32,gender="sdf")
+sd(name="sadf")
+#在关键字参数被放入字典后，通过.item()函数，可以迭代输出位于形参的值（如上式子中的kvargs）。
+#用for循环输出字典中的值的时候需要有两的变量，分别对应参数名，和参数值。一起输出（如上式子）。
+#参数的混合调用问题       ：      一般是普通参数    关键字参数       收集参数
+def stu(name,age,*args,hobby="没有",**kvargs):
+    print("大家好，我叫{0}，我今年{1}岁了".format(name,age))
+    if hobby=="没有":
+        for i in args:
+            print(i)
+
+
+        for j,v in kvargs.items():
+            print(j,"---",v)
+    else:
+        for i in args:
+            print(i)
+            print("")
+        for j,v in kvargs.items():
+            print(j,"---",v)
+            print("")
+stu("赵立三",20,"fgss","zdfbz",hobby="asdfa",hobbyj="asdf",hobbyd="asdfa")
+def stu(*args):
+    print("hahah")
+    for i in args:
+        print(i)
+l=["asdf","adsf","adfg"]
+stu(*l)
+#如果要将多个变量放在一个变量中调用函数，在函数调用时我们应该在变量前面加上一个“* ”号。
+
+#python中返回值问题，其实在python中都有返回值，如果我们不明确写出返回值是几的话，返回null.
+def sd():
+    print("无返回值")
+def sb():
+    print("有返回值")
+    return 1
+a=sd()
+b=sb()
+print(a)
+print(b)
+
+
+#文档的写法：
+        #在函数内部开始的第一行使用三个单引号字符串定义符
+        #一般具有特定格式
+def asd(name,age,add):
+    '''
+    这是个文档
+    :param name: 姓名
+    :param age: 年龄
+    :param add: 住址
+    :return: 无
+    '''
+    print("欢迎观看文档")
+help(asd)
+asd.__doc__

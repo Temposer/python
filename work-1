@@ -1,0 +1,146 @@
+print("hello word")
+age1,age2,age3=1,2,3
+print(age1)
+print(age2)
+print(age3)
+num = 0b0100010#0b进行二进制到十进制的转换
+print(num)
+
+num1=0o1234567#0o进行八进制到十进制的转换
+print(num1)
+nam4=0x2ab#0x进行十六进制到十进制的转换
+print(nam4)
+num=.4
+print(num)
+num=1.25e5
+print(num)
+#复数是一个由实部和虚部构成的数
+num=3j
+print(num)
+num=4+3j
+print(num)
+#python中布尔值可以像数字一样直接参与运算
+love="i love you"
+print(love)
+iy='i love you'
+print(iy)
+jl='''赵立三
+   男
+18
+'''
+
+print(jl)
+s='''
+let's go
+'''
+print(s)
+s='let\'s go'#由于引号可以用于注释所以要在文本中输出引号，需要用反斜杠
+print(s)
+s='\\ '
+print(s)
+s='fjghj\nyutu'
+print(s)
+#     在Linux系统下\r\n转意为回车符    在windous系统下\n就可以代表回车符、当然用\r\n也可以代表回车符。
+#'\'为转意字符
+print('I Love %s'%'wangxiaojing')
+s='i love %s'
+print(s%'dsf')
+# %s加字符串
+# %d加整数
+s="i am %s,i\'m %d"
+print(s%('赵立三',20))
+s='i love {}'.format('asfasd')
+print(s)
+#特别在注意format前面的“.”。
+a=3-2
+s='the first is {0},the second is {1},the third is {2}'.format(a,"argt",15)
+print(s)
+#  {}中的数字必须从0开始
+s=1-0
+print(s)
+print(1>2)
+#  %求余数运算
+#  //取整数运算
+a=9%4
+print(a)
+a=9//4
+print(a)
+a=2^2
+print(a)
+a=2**3   #两个星号表示     2的3次方
+print(a)
+#python 没有自增自减运算
+# python 中的逻辑运算符，and 为逻辑与， or 逻辑或 , not 逻辑非。
+# python 中的逻辑运算法，and 看做乘法， or 看做加法。这只是一个窍门，由此得出逻辑运算的结果。
+b=9
+a=True  or (b==9) and 6
+print(a)
+l=[1,2,3,4]
+a=4
+print(a in l)
+#  成员运算符    in ：检测一个变量是否是另一个变量的一员。     相反为   not in
+#  身份运算符    is ：用来检测两个变量是否为同一个变量   相反为is not
+a=0
+b=0
+print(a is b)
+
+a=67*2.2+72*2.7+91*4.6+64*1.9+62*1.7+78*3.3+92+4.7+80*3.5
+print(a)
+#在python 中进行判断的 if在 条件语句后面要加  ：，条件语句可以不加括号。
+age=19
+if age<20:
+    print('你是未成年人')
+else:
+    print('你是成年人')
+print('你是人')
+
+#age=input('请输入你的年龄')# input 后面有括号 里面的内容会在显示器上显示出来，然后根据括号里面的要求，我们在键盘上键入
+                           # 然后 input会把我们键入的值返还给变量， ####注意input传给变量的值只能是字符串类型，
+                           #如想转换，需再用其他函数。
+#age=int(age)
+#if age<20:
+  #  print('你是未成年人')
+#else:
+  #  print('你是成年人')
+a='''
+cj=input('请输入你的成绩')
+cj=int(cj)
+if cj>=90:
+    print('a')
+if cj>=80 and cj<90:
+    print('b')
+if cj>=70 and cj<80:
+    print('c')
+if cj>=60 and cj<70:
+    print('d')
+if cj<60:
+    print('d')
+'''
+print(a)
+#python 中的else if在python 中直接写作 elif  .在python 中进行判断，不建议使用嵌套结构。
+for name in ['adfa','asdf','sdfa','asdf']:
+    print(name)
+    if name=='adfa':
+        print('{}我的最爱'.format(name))
+    else:
+        print('同学我们不约')
+# range 作用：生成一个数字序列，具体范围自己设定 如rangee(1,10) 结果为1 2 3 4 5 6 7 8 9
+#                                             可见range生成的序列包含括号左边的数，不包含括号右边的数。
+for i in range(1,10):
+    print(i)
+#for-else 语句 当for 循环结束时，会执行else中的语句     else语句可有可无。
+# for 循环中break 和continue 的作用与java 相同 ，pass   的作用是略过。
+for i in range(1,11):
+    if i==7:
+        print(i)
+    else:
+        pass
+for _ in range(1,10):  #如果不需要参数可以用下划线‘—’来代替
+    print('i love you')
+for i in range(1,10):
+    if i==7:
+        print(i)
+        break
+    else:
+        print(i)
+#for循环中如果只有一个pass 那么直接跳过整个循环，如果for循环中还有其他内容，那么pass没有任何作用。只是占了一个位置。

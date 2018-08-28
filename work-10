@@ -1,0 +1,112 @@
+#模块
+#一个模块就是一个包含python代码的文件，后缀名就是.py，模块就是一个python 文件
+#使用模块的原因：
+    #程序太大需要拆分
+    #模块可以增加代码重复利用的方式
+    #当做命名空间的使用，避免命名冲突
+#定义模块的方法：
+    #模块就是一个普通文件，任何代码可以直接书写
+    #不过根据模块的规范，最好在模板中编写以下内容
+        #函数（单一功能）
+        #类（相似功能的组合，或者类似业务模块）
+        #测试代码
+#如何使用模块：
+     #模块直接引入
+        #对于普通的python文件是不可以以数字开头的，但是但对于模块是可以
+        #是直接以数字开头需要借助importlib帮助
+     #语法
+#import module_name(模块名)
+#下面的内容直接调用就好了
+#案例见workct.py文件
+#import 模块名 as 别名 （将模块名用别名代替）既在导入时将模块名用别名代替
+#from 模块名 import 对象名，类名 （意为：在某个模块中导入指定名称的类名或者对象名）
+#from 模块名 import *   导入模块所有内容
+'''
+import po1       #倒入模块的时候相当于将模块文件下的代码运行一次
+s=po1.stu("nn",12)
+s.say()
+print(s._age)
+
+import po1 as p
+s=p.stu("adfbv0",5)
+s.say()
+
+from po1 import stu
+s=stu("nn",12)
+s.say()
+print(s._age)
+from po1 import sayhello
+sayhello()  #欢迎来到皇家理工
+#使调用更加清晰
+
+from po1 import *
+s=stu("fadfvg",651)#注意当用from调用整个模块时，调用模块中的成员或者函数，可直接调用函数名，不许在间接调用模块名
+s.say()
+#实验成功虽然写的时候pc会对调用的模块报错，但是并不影响编译
+'''
+#如果只想在直接调用模块时显示某些内容，而不是在用from调用模块中的所有函数时调用，可以用如下方法
+#可以在需要判断的函数前面加上一句话：“if __name__=='__main__':”以此来进行判断
+#上一句建议放在程序的第一句话位置。
+#if __name__=='__main__':的使用
+    #可以有效避免模块代码别导入的时候被动执行的问题
+    #所以建议一致将此代码放在程序入口
+##模块的搜索路径和存储
+    #加载模块的时候，系统回到那些地方寻找此模块
+#系统默认模块搜索路径
+    #import sys
+    #sys.path  属性可以获取路径列表
+    #使用type可以看出sys.path,是一个list类型，所以可以中for循环进行输出
+#添加搜索路径
+    #sys.path.append(dir)
+#模块加载顺序
+    #1，搜索内存中已经加载好的模块
+    #2，搜索python中的内置路径
+    #3，搜索sys.path路径
+##包
+    #包是一种组织管理代码的方式，包里面存放的是模块
+    #用来将模块包含在一起的文件夹就是包
+    #__init__.py文件是包的标志性文件一个包中每个层次有且只有一个，可以进行嵌套
+#包的导入操作
+    #import package_name
+        #直接倒入一个包，可以使用__init__.py中的内容
+        #使用方法：
+            #package_name.func_name
+            #package_name.class_name.func_name()
+        #案例 pkg1,po2
+    #也可以像模块的别名一样对包进行别名化使用import 包名 as 别名
+    #以上方法是默认对__init__.py文件内容进行调用
+    #import package.module
+        #导入包中某一个模块
+        #使用方法
+            #package.module.func_name()
+            #package.module.class.fun()
+            #package.module.class.var
+        #案例po3
+        #也可以对具体调用的模块进行别名化
+        #import package.module as 别名
+#from package import module 对包中某一个模块进行导入
+    #此类导入方法将不执行__init__.py中的内容
+    #from package import *
+        #导入的是当前包中__init__.py文件中的函数和类
+        #使用方法案例po4
+#from package.module import *
+    #导入指定包中模块的所有内容
+    #使用方法
+        #func_name()
+        #class_name.func_name()
+#在开发环境中会经常引种其他模块，可以在当前包中直接导入其他模块中的内容
+    #import 完整的包或者模块的路径
+#'__all__'用法
+    #在使用form package import *的时候，*可以为空
+    #__init__.py 中的文件为空，或者没有__all__的值，南无可以把__init__中的内容导入
+    #__init__如果设置了__all__的值，那么则按照__all__指定的子包或模块进行导入，如此则不会载入___init__中的其他内容
+    #__all__=['module1','module2','module3',....]
+    #__all__存在于__init__中
+###命名空间
+    #用于区分不同位置不同功能但相同名称的函数或者变量的一个特定前缀
+    #作用为防止命名冲突
+        #如：setname()
+            #stu.setname()
+            #dog.setname()
+            #以上三者时同一个名字但是所指代的内容各不相同。
+

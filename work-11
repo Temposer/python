@@ -1,0 +1,104 @@
+#异常处理
+#错误是认为可以避免的
+#异常是指在语法和逻辑正常的前提下，出现了问题（既不可避免的）
+#在python 中宜昌市一个类，可以处理和使用。
+'''
+AttributeError 不存在属性
+IoError  输入或输出异常
+ImportError 无法引入模块或包。（一般是路径问题或模块名称有误）
+IndentationError 语法错误（SyntaxError子类），一般是代码缩进错误
+KeyError 字典中不存在关键字
+KeyboardInterrupt Ctrl+C被按下
+NameError 使用一个未被赋予对象的变量
+SyntaxError 语法错误
+TypeError 传入对象类型与要求不符
+UnboundLocalError 变量作用域的问题（详见：https://docs.python.org/2/faq/programming.html#why-am-i-getting-an-unboundlocalerror-when-the-variable-has-a-value）
+'''
+l=[1,2,3,5,6,"ads"]
+print(l,"ads")
+#异常处理
+    #1不能保证程序永远正确运行
+    #2但是，必须保证程序在最坏车情况下得到的问题被妥善处理
+    #python 异常处理的语法为;
+        #try:
+            #尝试实现某个操作
+            #如果没有出现，任务可以完场
+            #如果出现异常，将异常在当前代码块仍处去尝试解决
+        #except 异常类型1
+            #解决方案1：用于尝试在此处解决异常问题
+        # #except 异常类型2
+            #解决方案2：用于尝试在此处解决异常问题
+        #excpet(异常类型1，异常类型2....)
+            #解决方案：针对多个异常使用相同的处理方案
+        #except；
+            #所有异常的解决方案
+        #else:
+            #如果没有出现任何异常，将会执行此处代码
+        #finally:
+            #管你有没有异常都要要执行的代码
+####以上为异常的处理方案
+#流程：
+    #1执行try下面的语句
+    #2,如果出现异常，执行excpet下面的语句
+    #2，如果没有异常，则执行else下面的语句
+    #3，最后，不管出不出现异常，都执行finally语句
+    #除了except以外，其余都是可选的
+'''
+try:
+    num=int(input("请输入数字"))
+    j=100/num
+    print("计算结果为{}".format(j))
+except:
+    print("输入不符合规范")
+else:
+    print("欢迎使用")
+    exit()
+    #exit是退出程序的意思  但会执行finally语句
+finally:
+    print("欢迎您下次使用")
+'''
+#对于捕获异常，并且实例化出来
+#实例。当进行除零异常时：
+'''
+try:
+    num=int(input("请输入数字"))
+    j=100/num
+    print("计算结果为{}".format(j))
+except ZeroDivisionError as k:  #一场出累的实例化规范：except 异常类型 as 实例化对象
+    print("输入不符合规范")
+    print(k)
+else:
+    print("欢迎使用")
+finally:
+    print("欢迎您下次使用")
+    '''
+#如果出现了分多种错误 ，则需要把越具体越明确的错误，越往前放
+#在异常类的继承关系中，越是子类的异常，越是向前放，
+#在处理异常的时候，一旦拦截某一个异常，则不再继续向下看，直接进行下一个代码，既有finally语句块，否则直接执行下一个大语句
+#手动引发异常：
+    #raise关键字引发异常
+    #案例
+'''
+try:
+    print('手动引发异常')
+    print('摇身一变成黑客')
+    raise ValueError
+    print("已经引发异常")
+except NameError as k:
+    print(k)
+    exit()
+except ValueError as k:
+    print(k)
+    exit()
+except Exception as k:
+    print(k)
+    print("如果我出现，则没有找到异常")
+    exit()
+finally:
+    print("异常没有被发现")
+'''
+#自定义异常
+#自定义异常必须时系统异常的子类
+class ZhaoError(ValueError):
+    pass
+#由以上可见，自定义一场就是创建一个系统异常的子异常

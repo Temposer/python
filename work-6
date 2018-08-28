@@ -1,0 +1,121 @@
+#阅轩图书专营店
+#python  面向对象
+#类：抽象名词，代表一个集合，共性的事物团体
+#对象：具体的事物，单个个体
+#类与对象的关系
+     #1）一个具体，一个抽象，一个代表大事物，一个代表小事物。
+#如何声明一个类
+    #必须用class关键字
+    #类由属性和方法构成，其余不允许出现。
+    #成员属性
+'''
+class stu():    #此处定义一个学生类
+    pass         #如果不想在类中写入任何方法，则必须用pass跳过
+zhaolisan=stu()
+class pystu():
+    name=None             #None 给不确定的值赋值
+    id=18
+    course="python"
+    def dowork(self):             #注意def 函数的缩进层级。2）系统默认一个self参数
+        print("我正在做作业")
+        return None             #推荐在函数末尾使用return语句（可以不使用）
+zhao=pystu()
+zhao.dowork()
+#ananconda   的基本使用
+#anaconda主要为一个虚拟环境管理器               虚拟环境的好处为不会污染其他文件
+#conda list 显示anaconda 安装的包
+#conda env list：显示anaconda 的虚拟安装环境
+#conda creat -n xxxpython=3.6:创建版本为3.6的虚拟环境名称为xxx
+#实例化类：
+    #变量=类名()#既实例化了一个对象
+#访问成员对象
+     #使用点操作符
+         #obj.成员属性名称
+         #obj.成员方法
+     #对象所有成员的
+
+#对象所有成员的检测
+     #dict前后各有一个下划线
+    #class_name._dict_
+'''
+class a():
+    name="zhao"
+    age=10
+a.__dict__
+#类和对象都可以存储成员，成员可以归类所有，也可以归对象所有
+class A():
+    name="zhao"
+    age=13
+    def say(self):
+        name="sfdg"
+        age=65416
+print(A.name)
+print(A.age)
+print(id(A.name))#2032916688208
+print(id(A.age))#1438478176
+a=A()
+print(a.name)
+print(a.age)
+print(id(a.name))#2032916688208
+print(id(a.age))#1438478176
+#由id的值比较可见，对象实例和类实例所指向的是相同的（位置）
+#类实例的属性和其对象实例的属性，在不对对象赋值的情况下指向同一个变量。
+#当对对象赋值时，对象将创建一个独立的个体
+print(A.__dict__)#结果为非空
+print(a.__dict__)#结果为空
+#创建成员时，类中的成员不会放入对象中，而是得到一个空对象，没有成员。
+'''
+class Stu():
+    name="adv"
+    age=32
+    def say(self):         #此处self为一个形参，功能类似于java中的this。不一定必须写self，任何都行。
+       self.name="adf0"
+       self.age=526
+       print("my name is {}".format(self.name))
+       print("my age is {}".format(self.age))
+zhao=Stu()
+zhao.say()
+print(zhao.name)
+class teacher():
+    name="svdf0"
+    age=12
+    def say(self):
+        print("my name is {0},i {1} years old".format(self.name,self.age))
+    def sayagain(self):#由此处可见方法的形参如果不存在将报错，因为‘self’默认将调用对象门神赋予‘self’
+        print("Hello world") #如果在方法后面不写‘self’在函数调用的时候必须用类名调用，如下式
+t=teacher()
+t.say()
+t.sayagain()
+teacher.sayagain()
+class S():
+    name="affds"
+    age=65516
+   # def_init_(self):
+'''
+#封装
+#封装就是对对象成员进行访问限制
+#封装的三个级别：
+   #公开：public
+   #受保护的  protected
+   #私有的：private；
+   #以上三者均不是关键字；
+#判别对象位置
+    #1.对象内部  2.对象外部  3，子类中
+#私有
+    #私有成员是最高级的封装，只有在当前类或对象中访问
+    #在成员变量前面添加两个下划线就行
+class preson():
+        name='asdf'  #此处name为公有变量
+        __age=18      #此处age为私有变量
+p=preson()
+print(p.name)
+#print(preson.age)    #此时输出位空；AttributeError: type object 'preson' has no attribute 'age'
+#python中的私有变量并非真正的私有变量只是将定义的私有变量改变了变量名（可以访问）
+#通过以下方法
+print(preson.__dict__) #'_preson__age': 18
+print(preson._preson__age) #18  通过这种方法就可以找到
+#受保护的封装
+  #受保护的封装是将对象长远进行一定级别背封装，然后在类或者子类中都进行访问，但在外部不可以
+  #封装方法：在成员名称前加一个下划线即可，（同样为是改名，只需要寄一个下划线）
+#public公共成员
+#面向对象的三大特征，1.封装2.继承，3.多台
